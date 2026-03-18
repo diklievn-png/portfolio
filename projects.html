@@ -910,6 +910,26 @@ body.light .filter-btn.active { background:#1D4ED8 !important; color:#fff !impor
   <video id="vlbVideo" controls style="max-width:90vw;max-height:85vh;border-radius:12px;"></video>
 </div>
 
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-prev" onclick="changeLightbox(-1)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-next" onclick="changeLightbox(1)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <span class="lightbox-counter" id="lightboxCounter"></span>
+</div>
+
+<!-- VIDEO LIGHTBOX -->
+<div class="video-lightbox" id="videoLightbox">
+  <button class="vlb-close" onclick="closeVideoLightbox()">✕</button>
+  <video id="vlbVideo" controls style="max-width:90vw;max-height:85vh;border-radius:12px;"></video>
+</div>
+
 <!-- FLOATING VIBER -->
 <a href="viber://chat?number=%2B359988945416" class="float-viber" aria-label="Viber">
   <span class="float-tooltip">Chat on Viber</span>
