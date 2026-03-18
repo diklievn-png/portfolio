@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%23080B14'/><text x='50' y='58' font-family='Arial Black,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='white'>ND</text><circle cx='82' cy='72' r='7' fill='%233B82F6'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Nikola Dikliev</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #080B14;
+    color: #E2E8F0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  .font-syne { font-family: 'Syne', sans-serif; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+  /* LIGHT MODE */
+  body.light { background:#F8FAFC; color:#0F172A; }
+  body.light.grid-bg {
+  background-image:
+    linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+  body.light .grid-bg {
+    background-image:
+      linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+  }
+  body.light nav { background:rgba(248,250,252,0.92); border-bottom:1px solid rgba(59,130,246,0.2); }
+  body.light .nav-logo { color:#0F172A; }
+  body.light .nav-links a { color:#475569; }
+  body.light .nav-links a:hover { color:#0F172A; }
+  body.light .mobile-menu { background:rgba(248,250,252,0.98); }
+  body.light .mobile-menu a { color:#0F172A; }
+  body.light .hamburger span { background:#0F172A; }
+  body.light .section-title { color:#0F172A; }
+  body.light .hero-title { color:#0F172A !important; }
+  body.light .stat-card { background:rgba(59,130,246,0.04); border-color:rgba(59,130,246,0.15); }
+  body.light .service-card { background:#fff; border-color:rgba(0,0,0,0.08); }
+  body.light .service-card:hover { background:rgba(59,130,246,0.04); }
+  body.light .service-card.featured { background:rgba(59,130,246,0.06); }
+  body.light .tool-chip { background:#fff; border-color:rgba(0,0,0,0.1); color:#475569; }
+  body.light .tool-chip:hover { color:#1D4ED8; background:rgba(59,130,246,0.06); }
+  body.light .about-box { background:rgba(59,130,246,0.05); border-color:rgba(59,130,246,0.2); }
+  body.light .check-item { color:#475569; }
+  body.light .divider { border-color:rgba(0,0,0,0.08); }
+  body.light footer { border-color:rgba(0,0,0,0.08); }
+  body.light footer p { color:#94A3B8; }
+  body.light .available-dot { border:2px solid #F8FAFC; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    backdrop-filter:blur(24px);
+    background:rgba(8,11,20,0.92);
+    border-bottom:1px solid rgba(59,130,246,0.15);
+    transition:background 0.3s, border-color 0.3s;
+  }
+  .nav-inner {
+    max-width:1200px; margin:0 auto;
+    padding:0 24px; height:68px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+  }
+  .nav-logo {
+    font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800;
+    color:#F1F5F9; letter-spacing:-0.02em; text-decoration:none;
+    display:flex; align-items:center; gap:2px;
+    transition:color 0.3s;
+  }
+  .nav-logo span { color:#3B82F6; }
+  .nav-logo-dot {
+    width:6px; height:6px; border-radius:50%; background:#4ADE80;
+    margin-left:4px; margin-bottom:8px;
+    animation:pdot 2s ease-in-out infinite;
+  }
+  .nav-links { display:flex; gap:8px; align-items:center; }
+  .nav-links a {
+    color:#94A3B8; font-size:0.875rem; text-decoration:none;
+    padding:6px 12px; border-radius:8px;
+    transition:all 0.2s;
+  }
+  .nav-links a:hover { color:#F1F5F9; background:rgba(255,255,255,0.06); }
+  .nav-right { display:flex; align-items:center; gap:12px; }
+
+  /* THEME TOGGLE */
+  .theme-toggle {
+    width:40px; height:40px; border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:16px; transition:all 0.2s; flex-shrink:0;
+  }
+  .theme-toggle:hover { background:rgba(255,255,255,0.1); border-color:rgba(59,130,246,0.4); }
+  body.light .theme-toggle { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+  body.light .theme-toggle:hover { background:rgba(59,130,246,0.08); border-color:rgba(59,130,246,0.3); }
+
+  /* HAMBURGER */
+  .hamburger {
+    display:none; flex-direction:column; justify-content:center;
+    gap:5px; cursor:pointer; background:none; border:none; padding:8px; z-index:300;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px;
+    background:#E2E8F0; border-radius:2px;
+    transition:all 0.3s ease; transform-origin:center;
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE DRAWER */
+  .mobile-menu {
+    position:fixed; top:68px; left:0; right:0; bottom:0;
+    background:rgba(8,11,20,0.98); backdrop-filter:blur(20px);
+    z-index:150;
+    flex-direction:column; align-items:center; justify-content:center; gap:36px;
+    display:none; opacity:0; pointer-events:none; transition:opacity 0.3s ease;
+  }
+  .mobile-menu.open { display:flex; opacity:1; pointer-events:all; }
+  .mobile-menu a {
+    color:#F1F5F9; font-family:'Syne',sans-serif;
+    font-size:1.8rem; font-weight:700; text-decoration:none;
+    letter-spacing:-0.02em; transition:color 0.2s;
+  }
+  .mobile-menu a:hover { color:#60A5FA; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background:#3B82F6; color:#fff; border:none; border-radius:8px;
+    padding:14px 32px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; letter-spacing:0.02em;
+    transition:all 0.2s; text-decoration:none; display:inline-block;
+  }
+  .btn-primary:hover { background:#2563EB; transform:translateY(-1px); box-shadow:0 8px 30px rgba(59,130,246,0.4); }
+  .btn-outline {
+    background:transparent; color:#93C5FD;
+    border:1px solid rgba(59,130,246,0.4); border-radius:8px;
+    padding:14px 32px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; letter-spacing:0.02em;
+    transition:all 0.2s; text-decoration:none; display:inline-block;
+  }
+  .btn-outline:hover { border-color:#3B82F6; background:rgba(59,130,246,0.08); }
+
+  /* BADGE */
+  .badge {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3);
+    border-radius:99px; padding:6px 16px; font-size:0.78rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:#93C5FD;
+  }
+  .badge-dot { width:6px; height:6px; border-radius:50%; background:#3B82F6; animation:pdot 2s ease-in-out infinite; }
+  @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+  /* HERO */
+  .hero-title { font-size:clamp(2.4rem,8vw,5.5rem); line-height:1.05; font-weight:800; letter-spacing:-0.03em; }
+  .blue-text { color:#60A5FA; position:relative; }
+  .blue-text::after { content:''; position:absolute; left:0; right:0; bottom:-4px; height:3px; background:linear-gradient(90deg,#3B82F6,transparent); border-radius:2px; }
+
+  /* STATS */
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:480px; margin-top:72px; }
+  .stat-card { text-align:center; padding:24px 16px; border:1px solid rgba(255,255,255,0.07); border-radius:12px; background:rgba(255,255,255,0.02); }
+  .stat-num { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,2.6rem); font-weight:800; color:#60A5FA; line-height:1; }
+  .stat-label { font-size:0.75rem; color:#64748B; margin-top:6px; }
+
+  /* SECTION */
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:#3B82F6; font-weight:500; margin-bottom:12px; }
+  .section-title { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:800; letter-spacing:-0.02em; line-height:1.1; color:#F1F5F9; }
+
+  /* SERVICES */
+  .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .service-card {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px; padding:28px; transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#3B82F6,transparent); opacity:0; transition:opacity 0.3s; }
+  .service-card:hover { border-color:rgba(59,130,246,0.3); background:rgba(59,130,246,0.05); transform:translateY(-4px); }
+  .service-card:hover::before { opacity:1; }
+  .service-card.featured { grid-column:span 2; border-color:rgba(59,130,246,0.25); background:rgba(59,130,246,0.04); }
+  .service-card.full { grid-column:span 2; }
+  .featured-inner { display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center; }
+  .icon-box { width:48px; height:48px; background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; margin-bottom:20px; }
+
+  /* TOOLS */
+  .tools-wrap { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .tool-chip { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 18px; font-size:0.85rem; color:#94A3B8; transition:all 0.2s; }
+  .tool-chip:hover { border-color:rgba(59,130,246,0.4); color:#93C5FD; background:rgba(59,130,246,0.08); }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .about-box { background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); border-radius:20px; padding:36px; position:relative; }
+  .check-item { display:flex; align-items:center; gap:12px; font-size:0.875rem; color:#64748B; }
+  .check-item b { color:#3B82F6; font-weight:400; }
+  .available { display:inline-flex; align-items:center; gap:8px; font-size:0.8rem; color:#4ADE80; }
+  .available-dot { width:8px; height:8px; border-radius:50%; background:#4ADE80; animation:pdot 2s infinite; }
+  .divider { border:none; border-top:1px solid rgba(255,255,255,0.06); }
+  .reveal { opacity:1; transform:none; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── TABLET ── */
+  @media (max-width:900px) {
+    .hamburger { display:flex; }
+    .nav-links { display:none; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .services-grid { grid-template-columns:1fr; }
+    .service-card.featured { grid-column:span 1; }
+    .service-card.full { grid-column:span 1; }
+    .featured-inner { grid-template-columns:1fr; }
+    .featured-inner .icon-box { margin-bottom:16px; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width:600px) {
+    .hero-section { padding:100px 20px 60px !important; }
+    .sec { padding:70px 20px !important; }
+    .stats-grid { max-width:100% !important; margin-top:48px; }
+    .stat-card { padding:16px 8px; }
+    .hero-btns { flex-direction:column; }
+    .hero-btns a { width:100%; text-align:center; }
+    .service-card { padding:22px 18px; }
+    .about-box { padding:24px 20px; }
+    .cta-btns { flex-direction:column; align-items:center; }
+    .cta-btns a { width:100%; max-width:320px; text-align:center; }
+    .mobile-menu a { font-size:1.5rem; }
+  }
+body.light .service-card h3 { color:#1E293B !important; }
+body.light .about-box blockquote { color:#1E293B !important; }
+body.light .about-box blockquote span { color:#1D4ED8 !important; }
+body.light p { color:#334155 !important; }
+body.light .check-item { color:#334155 !important; }
+body.light .nav-links a { color:#334155 !important; }
+body.light .section-label { color:#1D4ED8 !important; }
+body.light .badge { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.4) !important; }
+body.light .stat-num { color:#1D4ED8 !important; }
+body.light .blue-text { color:#1D4ED8 !important; }
+body.light .btn-outline { 
+  color:#1D4ED8 !important; 
+  border-color:#1D4ED8 !important; 
+}
+body.light .btn-outline:hover { 
+  background:rgba(29,78,216,0.08) !important; 
+}
+body.light em { color:#1D4ED8 !important; }
+body.light span[style*="93C5FD"] { color:#1D4ED8 !important; }
+body.light .service-card.featured div[style*="93C5FD"] { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.4) !important; }
+
+  /* FLOATING VIBER */
+  .float-viber {
+    position:fixed; bottom:28px; right:28px; z-index:500;
+    width:56px; height:56px; border-radius:50%;
+    background:#7360F2;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    box-shadow:0 4px 20px rgba(115,96,242,0.5);
+    transition:all 0.3s;
+  }
+  .float-viber:hover { transform:scale(1.1); box-shadow:0 8px 30px rgba(115,96,242,0.7); }
+  .float-viber svg { width:28px; height:28px; }
+  .float-tooltip {
+    position:absolute; right:64px; top:50%; transform:translateY(-50%);
+    background:#1E293B; color:#F1F5F9; font-size:0.78rem;
+    padding:6px 12px; border-radius:8px; white-space:nowrap;
+    opacity:0; pointer-events:none; transition:opacity 0.2s;
+    font-family:'Inter',sans-serif;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .float-viber:hover .float-tooltip { opacity:1; }
+
+
+
+  /* PROJECTS SPECIFIC */
+/* FILTER BUTTONS */
+  .filters { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:48px; }
+  .filter-btn {
+    padding:8px 20px; border-radius:99px; font-size:0.82rem;
+    border:1px solid rgba(255,255,255,0.1); background:transparent;
+    color:#94A3B8; cursor:pointer; font-family:'Inter',sans-serif;
+    transition:all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background:#3B82F6; color:#fff; border-color:#3B82F6;
+  }
+
+  /* PROJECT CARDS */
+  .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
+
+  .project-card {
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.07);
+    border-radius:20px; overflow:hidden;
+    transition:all 0.3s; cursor:pointer;
+    display:flex; flex-direction:column;
+  }
+  .project-card:hover { border-color:rgba(59,130,246,0.35); transform:translateY(-6px); box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+
+  .project-img {
+    width:100%; aspect-ratio:16/9; object-fit:cover;
+    display:block; transition:transform 0.4s ease;
+  }
+  .project-card:hover .project-img { transform:scale(1.03); }
+  .project-img-wrap { overflow:hidden; position:relative; }
+  .project-img-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.6) 100%);
+  }
+
+  .project-body { padding:28px; flex:1; display:flex; flex-direction:column; gap:16px; }
+
+  .project-tags { display:flex; flex-wrap:wrap; gap:8px; }
+  .tag {
+    font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:4px 12px; border-radius:99px;
+    background:rgba(59,130,246,0.1); color:#93C5FD;
+    border:1px solid rgba(59,130,246,0.2);
+  }
+
+  .project-title { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700; color:#F1F5F9; line-height:1.3; }
+  .project-desc { font-size:0.9rem; color:#64748B; line-height:1.75; flex:1; }
+
+  .contributions { margin-top:4px; }
+  .contributions-title { font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#3B82F6; margin-bottom:10px; font-weight:500; }
+  .contribution-item { display:flex; align-items:flex-start; gap:10px; font-size:0.85rem; color:#94A3B8; line-height:1.5; margin-bottom:6px; }
+  .contribution-item::before { content:'→'; color:#3B82F6; flex-shrink:0; font-size:0.8rem; margin-top:1px; }
+
+  .project-footer { display:flex; align-items:center; justify-content:space-between; margin-top:8px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.06); }
+  .project-link {
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.85rem; font-weight:600; color:#60A5FA;
+    text-decoration:none; font-family:'Syne',sans-serif;
+    padding:8px 16px; border-radius:8px;
+    border:1px solid rgba(59,130,246,0.3);
+    transition:all 0.2s;
+  }
+  .project-link:hover { background:rgba(59,130,246,0.1); border-color:#3B82F6; }
+  .project-link svg { transition:transform 0.2s; }
+  .project-link:hover svg { transform:translate(2px,-2px); }
+
+  .project-type { font-size:0.75rem; color:#475569; }
+
+  /* HERO */
+  .page-hero { padding:140px 32px 80px; position:relative; overflow:hidden; }
+  .hero-sub { color:#94A3B8; font-size:1rem; line-height:1.75; max-width:500px; margin-top:16px; }
+
+  /* DIVIDER */
+  .divider { border:none; border-top:1px solid rgba(255,255,255,0.06); }
+
+  /* RESPONSIVE */
+  @media (max-width:900px) {
+    .hamburger { display:flex; }
+    .nav-links { display:none; }
+    .projects-grid { grid-template-columns:1fr; }
+  }
+  @media (max-width:600px) {
+    .page-hero { padding:110px 20px 60px; }
+    .projects-section { padding:60px 20px !important; }
+  }
+
+  /* GALLERY CARD */
+  .gallery-card { grid-column: span 2; }
+  .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:0; }
+  .gallery-item {
+    position:relative; border-radius:12px; overflow:hidden;
+    aspect-ratio:4/3; cursor:pointer;
+  }
+  .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .gallery-item:hover img { transform:scale(1.05); }
+  .gallery-item-overlay {
+    position:absolute; inset:0;
+    background:rgba(8,11,20,0.45);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:opacity 0.3s;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity:1; }
+  .gallery-item-overlay svg { color:#fff; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(0,0,0,0.92);
+    display:none; align-items:center; justify-content:center;
+    backdrop-filter:blur(8px);
+  }
+  .lightbox.open { display:flex; }
+  .lightbox-img {
+    max-width:90vw; max-height:88vh;
+    border-radius:12px; object-fit:contain;
+    box-shadow:0 40px 80px rgba(0,0,0,0.6);
+  }
+  .lightbox-close {
+    position:absolute; top:20px; right:24px;
+    background:rgba(255,255,255,0.1); border:none;
+    color:#fff; font-size:24px; cursor:pointer;
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  }
+  .lightbox-close:hover { background:rgba(255,255,255,0.2); }
+  .lightbox-prev, .lightbox-next {
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(255,255,255,0.1); border:none;
+    color:#fff; cursor:pointer;
+    width:48px; height:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s;
+  }
+  .lightbox-prev { left:20px; }
+  .lightbox-next { right:20px; }
+  .lightbox-prev:hover, .lightbox-next:hover { background:rgba(59,130,246,0.4); }
+  .lightbox-counter { position:absolute; bottom:20px; color:rgba(255,255,255,0.6); font-size:0.85rem; }
+  @media (max-width:900px) { .gallery-card { grid-column:span 1; } .gallery-grid { grid-template-columns:repeat(2,1fr); } }
+
+  /* VIDEO LIGHTBOX */
+  .video-lightbox { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.95); display:none; align-items:center; justify-content:center; backdrop-filter:blur(8px); }
+  .video-lightbox.open { display:flex; }
+  .video-lightbox video { max-width:90vw; max-height:85vh; border-radius:12px; box-shadow:0 40px 80px rgba(0,0,0,0.6); }
+  .vlb-close { position:absolute; top:20px; right:24px; background:rgba(255,255,255,0.1); border:none; color:#fff; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:20px; display:flex; align-items:center; justify-content:center; transition:background 0.2s; z-index:10; }
+  .vlb-close:hover { background:rgba(255,255,255,0.25); }
+
+  /* VIDEO PLAY BUTTON */
+  .video-thumb {
+    position:relative; border-radius:12px; overflow:hidden;
+    aspect-ratio:16/9; cursor:pointer; background:#000;
+  }
+  .video-thumb video { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+  .video-play-btn {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(8,11,20,0.45); transition:background 0.3s;
+  }
+  .video-thumb:hover .video-play-btn { background:rgba(59,130,246,0.35); }
+  .play-circle {
+    width:56px; height:56px; border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    border:2px solid rgba(255,255,255,0.5);
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.3s;
+  }
+  .video-thumb:hover .play-circle { background:#3B82F6; border-color:#3B82F6; transform:scale(1.1); }
+
+body.light .filter-btn { color:#334155 !important; border-color:rgba(0,0,0,0.15) !important; }
+body.light .project-title { color:#0F172A !important; }
+body.light .project-desc { color:#334155 !important; }
+body.light .contribution-item { color:#334155 !important; }
+body.light .contribution-item::before { color:#1D4ED8 !important; }
+body.light .contributions-title { color:#1D4ED8 !important; }
+body.light .project-type { color:#334155 !important; }
+body.light .project-footer { border-color:rgba(0,0,0,0.08) !important; }
+body.light .section-title { color:#0F172A !important; }
+body.light .hero-sub { color:#334155 !important; }
+body.light .tag { color:#1D4ED8 !important; background:rgba(29,78,216,0.08) !important; border-color:rgba(29,78,216,0.2) !important; }
+body.light .project-link { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.3) !important; }
+body.light .project-link:hover { background:rgba(29,78,216,0.08) !important; }
+body.light .filter-btn.active { background:#1D4ED8 !important; color:#fff !important; border-color:#1D4ED8 !important; }
+</style>
+</head>
+<body class="grid-bg">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">ND<span>.</span><span class="nav-logo-dot"></span></a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <a href="contact.html" class="btn-primary" style="padding:10px 22px;font-size:0.82rem;">Let's Talk</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#about" class="ml">About</a>
+  <a href="index.html#services" class="ml">Services</a>
+  <a href="index.html#tools" class="ml">Tools</a>
+  <a href="projects.html" class="ml">Projects</a>
+  <a href="contact.html" class="ml">Contact</a>
+  <a href="contact.html" class="btn-primary ml" style="font-size:1rem;padding:14px 40px;">Let's Talk</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="max-width:1200px;margin:0 auto;">
+  <div class="orb" style="width:500px;height:500px;top:-100px;left:-150px;background:radial-gradient(circle,rgba(59,130,246,0.1),transparent 70%);"></div>
+  <p class="section-label">My Work</p>
+  <h1 class="section-title">Selected Projects</h1>
+  <p class="hero-sub">A collection of client work and personal projects — from WordPress builds to Amazon A+ content and graphic design.</p>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects-section" style="padding:20px 32px 100px;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+      <button class="filter-btn" onclick="filterProjects('wordpress', this)">WordPress</button>
+      <button class="filter-btn" onclick="filterProjects('amazon', this)">Amazon</button>
+      <button class="filter-btn" onclick="filterProjects('design', this)">Graphic Design</button>
+      <button class="filter-btn" onclick="filterProjects('video', this)">Video</button>
+      <button class="filter-btn" onclick="filterProjects('php', this)">PHP</button>
+      <button class="filter-btn" onclick="filterProjects('acf', this)">ACF</button>
+      <button class="filter-btn" onclick="filterProjects('opencart', this)">Opencart</button>
+      <button class="filter-btn" onclick="filterProjects('seo', this)">Google SEO</button>
+    </div>
+
+    <!-- PROJECTS GRID -->
+    <div class="projects-grid" id="projectsGrid">
+
+      <!-- PROJECT 1 — Famatel Bulgaria -->
+      <div class="project-card" data-category="wordpress">
+        <div class="project-img-wrap">
+          <img src="images/project-1.webp" alt="Famatel Bulgaria" class="project-img">
+          <div class="project-img-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">PHP</span>
+            <span class="tag">CSS</span>
+          </div>
+          <h2 class="project-title">Famatel Bulgaria — Corporate Website</h2>
+          <p class="project-desc">Official Bulgarian website for Famatel, a global leader in electrical solutions. Built to maintain the corporate identity of the main Spanish site while featuring a unique visual approach and optimized user experience.</p>
+          <div class="contributions">
+            <p class="contributions-title">Key Contributions</p>
+            <div class="contribution-item">Custom Child Theme on WordPress for stability and future-proof updates</div>
+            <div class="contribution-item">Extensive Custom CSS & JavaScript for a bespoke, high-end aesthetic</div>
+            <div class="contribution-item">UI/UX design bridging global corporate standards with local market needs</div>
+            <div class="contribution-item">Advanced Image SEO: All images were specifically engineered for Google Search dominance. This included technical optimization of file structures, strategic metadata (Alt texts, titles), and high-relevance naming conventions.</div>
+          </div>
+          <div class="project-footer">
+            <a href="https://famatelbulgaria.com/" target="_blank" class="project-link">
+              Visit Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="project-type">Client Project</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 — DUPLICATE THIS -->
+      <div class="project-card" data-category="wordpress seo">
+        <div class="project-img-wrap">
+          <img src="images/project-2.webp" alt="TopClip" class="project-img">
+          <div class="project-img-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">Graphic Design</span>
+            <span class="tag">Google SEO</span>
+          </div>
+          <h2 class="project-title">TopClip – SEO-Optimized Platform for Industrial Manufacturing</h2>
+          <p class="project-desc">TopClip is the sole manufacturer of clipband tapes in Bulgaria. The primary goal was to create a digital presence that reflects their unique market position and dominates search engine results globally.</p>
+          <div class="contributions">
+            <p class="contributions-title">SEO Excellence: Engineered the site structure and content strategy to achieve the #1 ranking in Google for the highly competitive keyword "clipband manufacturer".</p>
+            <div class="contribution-item">Custom WordPress Development: Developed a bespoke Child Theme to provide a unique visual identity tailored to the industrial manufacturing sector.</div>
+            <div class="contribution-item">Conversion-Driven Design: Implemented streamlined contact forms and a dedicated "Direct Connection" page to facilitate seamless B2B communication and lead generation.</div>
+            <div class="contribution-item">SEO-Optimized AI Imagery: Created and integrated specialized, high-relevance AI-generated images directly linked to the core keywords. These assets are fully optimized for search engines, directly contributing to the site's #1 ranking in Google.</div>
+
+          </div>
+          <div class="project-footer">
+            <a href="https://topclip.eu/" target="_blank" class="project-link">
+              Visit Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="project-type">Client Project</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="wordpress video">
+        <div class="project-img-wrap">
+          <img src="images/project-3.webp" alt="Regional History Museum" class="project-img">
+          <div class="project-img-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">Graphic Design</span>
+            <span class="tag">Video</span>
+          </div>
+          <h2 class="project-title">Regional History Museum - Plovdiv | Digital Transformation & Web Accessibility</h2>
+          <p class="project-desc">A complete digital overhaul for one of Bulgaria’s most significant cultural institutions. The mission was to transform the Regional History Museum - Plovdiv’s online presence into a high-end, visually immersive experience that matches the museum's prestige, while ensuring 100% legal compliance with international accessibility standards.</p>
+          <div class="contributions">
+            <p class="contributions-title">High-End Visual Identity: * Designed and developed a custom WordPress Child Theme with extensive CSS overrides to achieve a sophisticated, "museum-grade" aesthetic.
+             Performed professional video and image post-production to ensure all multimedia content meets high-fidelity standards, reflecting the museum’s historical value.</p>
+            <div class="contribution-item">Web Accessibility & Legal Compliance (WCAG): * The Challenge: The museum’s previous website failed to meet the mandatory Accessibility Declaration standards (Web Content Accessibility Guidelines - WCAG), resulting in legal penalties and fines.
+             The Solution: Engineered the site from the ground up to be fully accessible to users with visual impairments and other disabilities.
+            The Result: Following a rigorous re-inspection by the authorities, the new site passed with perfect scores, completely resolving all prior legal and compliance issues.</div>
+            <div class="contribution-item">Performance & UI/UX: Created an intuitive navigation system that allows visitors to explore Plovdiv’s rich history effortlessly, with a focus on fast loading times and mobile responsiveness.</div>
+          </div>
+          <div class="project-footer">
+            <a href="https://rimplovdiv.com/" target="_blank" class="project-link">
+              Visit Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="project-type">Client Project</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="wordpress">
+        <div class="project-img-wrap">
+          <img src="images/project-4.webp" alt="Damatrix" class="project-img">
+          <div class="project-img-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">Graphic Design</span>
+            <span class="tag">CSS</span>
+          </div>
+          <h2 class="project-title">Damatrix Digital Agency | Founder & Technical Lead</h2>
+          <p class="project-desc">Damatrix is a full-service digital agency founded and managed by me. As the agency lead, I spearheaded the technical direction and overall strategy for our clients, ensuring that every project met high-performance standards and cutting-edge visual aesthetics.</p>
+          <div class="contributions">
+            <p class="contributions-title">Agency Management: Acted as the primary strategist and project manager, overseeing a creative team and coordinating workflow to deliver complex digital solutions.</p>
+            <div class="contribution-item">Creative Direction: Mentored and guided the design team in the creation of professional photography, banners, and visual assets, ensuring they aligned perfectly with each project’s UI/UX goals.</div>
+            <div class="contribution-item">Core Development: Personally executed the high-level WordPress architecture and custom development for the agency's portfolio, maintaining a balance between aesthetic excellence and technical performance.</div>
+          </div>
+          <div class="project-footer">
+            <a href="https://damatrix.eu/" target="_blank" class="project-link">
+              Visit Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="project-type">Agency Case Study</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="wordpress">
+        <div class="project-img-wrap">
+          <img src="images/project-5.webp" alt="EvroPro" class="project-img">
+          <div class="project-img-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">Graphic Design</span>
+            <span class="tag">CSS</span>
+          </div>
+          <h2 class="project-title">EvroPro – European Funding & Consultancy Platform</h2>
+          <p class="project-desc">A streamlined, professional web solution for EvroPro, a consultancy firm specializing in European project funding. The objective was to create a clean, high-trust digital environment that facilitates direct communication between consultants and potential clients.</p>
+          <div class="contributions">
+            <p class="contributions-title">Modern Development Stack: Built using a WordPress Child Theme integrated with the Gutenberg block editor, ensuring a lightweight, fast-loading, and easily maintainable structure.</p>
+            <div class="contribution-item">Conversion-Focused Functionality: Integrated a custom Booking & Appointment System, allowing clients to seamlessly schedule consultations directly through the platform.</div>
+            <div class="contribution-item">Minimalist UI/UX: Adhered strictly to a "Clean Design" brief, focusing on readability and intuitive navigation to help users find complex information with ease.</div>
+          </div>
+          <div class="project-footer">
+            <a href="https://evropro.eu/" target="_blank" class="project-link">
+              Visit Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="project-type">Client Project</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card" data-category="opencart">
+        <div class="project-img-wrap">
+          <img src="images/project-6.webp" alt="Project 2" class="project-img">
+          <div class="project-img-overlay"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Opencart</span>
+            <span class="tag">Graphic Design</span>
+          </div>
+          <h2 class="project-title">OfiPro – Full-Cycle E-Commerce Development & Brand Identity</h2>
+          <p class="project-desc">OfiPro is a specialized sales platform developed for my employer to streamline professional equipment distribution. I was tasked with building the store using OpenCart—a framework I had not used before—necessitating a rapid learning curve and execution.</p>
+          <div class="contributions">
+            <p class="contributions-title">Rapid Platform Mastery: Independently learned the OpenCart architecture and successfully launched a fully operational e-commerce site within a record-breaking two-week window.</p>
+            <div class="contribution-item">Complete Brand & Asset Design: Beyond the code, I acted as the lead designer, creating the official logo and all promotional banners from scratch to establish a cohesive brand identity.</div>
+            <div class="contribution-item">Full-Stack Content Creation: Managed the entire content lifecycle, including product photography, copywriting, and layout structuring, ensuring the site was "turnkey" and ready for immediate sales.</div>
+            <div class="contribution-item">Technical Agility: Demonstrated an exceptional ability to adapt to new PHP frameworks under tight deadlines, delivering a stable and scalable online store.</div>
+          </div>
+          <div class="project-footer">
+            <a href="https://evropro.eu/" target="_blank" class="project-link">
+              Visit Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="project-type">Client Project</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- AMAZON GALLERY -->
+      <div class="project-card gallery-card" data-category="amazon design">
+        <div class="project-body" style="gap:20px;">
+          <div class="project-tags">
+            <span class="tag">Amazon</span>
+            <span class="tag">A+ Content</span>
+            <span class="tag">Graphic Design</span>
+          </div>
+          <h2 class="project-title">Amazon A+ Content & Product Listing Design</h2>
+          <p class="project-desc">High-converting Amazon A+ content and product listing visuals — designed to increase click-through rates, reduce returns, and boost conversion. Each design follows Amazon's guidelines while standing out in a competitive marketplace.</p>
+          <div class="gallery-grid" id="amazonGallery">
+            <div class="gallery-item" onclick="openLightbox(0)">
+              <img src="images/amazon-1.webp" alt="Amazon listing 1">
+              <div class="gallery-item-overlay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(1)">
+              <img src="images/amazon-2.webp" alt="Amazon listing 2">
+              <div class="gallery-item-overlay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(2)">
+              <img src="images/amazon-3.webp" alt="Amazon listing 3">
+              <div class="gallery-item-overlay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(3)">
+              <img src="images/amazon-4.webp" alt="Amazon listing 4">
+              <div class="gallery-item-overlay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(4)">
+              <img src="images/amazon-5.webp" alt="Amazon listing 5">
+              <div class="gallery-item-overlay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(5)">
+              <img src="images/amazon-6.webp" alt="Amazon listing 6">
+              <div class="gallery-item-overlay"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+            </div>
+          </div>
+          <div class="project-footer" style="margin-top:8px;">
+            <span style="font-size:0.8rem;color:#475569;">Click images to view full size</span>
+            <span class="project-type">Design Gallery</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- CAR RENTAL PROJECT -->
+      <div class="project-card gallery-card" data-category="wordpress php acf">
+        <div class="project-body" style="gap:20px;">
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">PHP</span>
+            <span class="tag">ACF</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">CSS3</span>
+          </div>
+          <h2 class="project-title">Luxury Car Rental System | Advanced Full-Stack Development</h2>
+          <p class="project-desc">A bespoke car rental platform developed from the ground up to provide a seamless, high-performance experience. A showcase of transforming WordPress into a powerful, custom-built application using professional-grade development standards.</p>
+          <div class="contributions">
+            <p class="contributions-title">Key Contributions</p>
+            <div class="contribution-item">Custom Child Theme with PHP, CSS3 and JavaScript — complete control over logic and aesthetics</div>
+            <div class="contribution-item">ACF Advanced Data Management — car listings, specifications and extras via streamlined admin interface</div>
+            <div class="contribution-item">Custom Archive & Single Car Pages with dynamic specifications and high-conversion layouts</div>
+            <div class="contribution-item">AJAX Filtering — instantaneous no-reload car search for a modern, fluid user experience</div>
+            <div class="contribution-item">Custom Availability Calendar — proprietary real-time vehicle status system</div>
+            <div class="contribution-item">SEO optimized and performance engineered throughout</div>
+          </div>
+
+          <!-- VIDEO PREVIEWS -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+            <div class="video-thumb" onclick="openVideoLightbox('images/project-video-1.webm')">
+              <video src="images/project-video-1.webm" muted playsinline preload="metadata"></video>
+              <div class="video-play-btn">
+                <div class="play-circle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="video-thumb" onclick="openVideoLightbox('images/project-video-2.webm')">
+              <video src="images/project-video-2.webm" muted playsinline preload="metadata"></video>
+              <div class="video-play-btn">
+                <div class="play-circle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-footer" style="margin-top:4px;">
+            <span style="font-size:0.8rem;color:#475569;">Local Development Project</span>
+            <span class="project-type">Full-Stack Build</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end grid -->
+  </div>
+</section>
+
+<hr class="divider">
+
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:28px 32px;text-align:center;">
+  <p style="color:#334155;font-size:0.8rem;">© 2025 Nikola Dikliev — Conversion-Focused Web Designer & WordPress Specialist</p>
+</footer>
+
+
+<script>
+  // Hamburger
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.ml').forEach(l => {
+    l.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 900) {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Theme toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme === 'light') { document.body.classList.add('light'); toggleBtn.textContent = '☀️'; }
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    toggleBtn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+
+  // Filter
+  function filterProjects(cat, el) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.project-card').forEach(card => {
+      if(cat === 'all' || card.dataset.category.split(' ').includes(cat)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Image Lightbox
+  const amazonImgs = ['images/amazon-1.webp','images/amazon-2.webp','images/amazon-3.webp','images/amazon-4.webp','images/amazon-5.webp','images/amazon-6.webp'];
+  let currentIdx = 0;
+  function openLightbox(idx) {
+    currentIdx = idx;
+    document.getElementById('lightboxImg').src = amazonImgs[idx];
+    document.getElementById('lightboxCounter').textContent = (idx+1) + ' / ' + amazonImgs.length;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeLightboxOnBg(e) { if(e.target.id === 'lightbox') closeLightbox(); }
+  function changeLightbox(dir) {
+    currentIdx = (currentIdx + dir + amazonImgs.length) % amazonImgs.length;
+    document.getElementById('lightboxImg').src = amazonImgs[currentIdx];
+    document.getElementById('lightboxCounter').textContent = (currentIdx+1) + ' / ' + amazonImgs.length;
+  }
+
+  // Video Lightbox
+  function openVideoLightbox(src) {
+    const v = document.getElementById('vlbVideo');
+    v.src = src;
+    v.play();
+    document.getElementById('videoLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeVideoLightbox() {
+    const v = document.getElementById('vlbVideo');
+    v.pause();
+    v.src = '';
+    document.getElementById('videoLightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('videoLightbox').addEventListener('click', function(e) {
+    if(e.target === this) closeVideoLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') {
+      closeLightbox();
+      closeVideoLightbox();
+    }
+    if(document.getElementById('lightbox').classList.contains('open')) {
+      if(e.key === 'ArrowLeft') changeLightbox(-1);
+      if(e.key === 'ArrowRight') changeLightbox(1);
+    }
+  });
+</script>
+<!-- FLOATING VIBER -->
+<a href="viber://chat?number=%2B359988945416" class="float-viber" aria-label="Viber">
+  <span class="float-tooltip">Chat on Viber</span>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/><path fill-rule="evenodd" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/></svg>
+</a>
+</body>
+</html>

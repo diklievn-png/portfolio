@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%23080B14'/><text x='50' y='58' font-family='Arial Black,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='white'>ND</text><circle cx='82' cy='72' r='7' fill='%233B82F6'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikola Dikliev — Conversion-Focused Web Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #080B14;
+    color: #E2E8F0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  .font-syne { font-family: 'Syne', sans-serif; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+  /* LIGHT MODE */
+  body.light { background:#F8FAFC; color:#0F172A; }
+  body.light.grid-bg {
+  background-image:
+    linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+  body.light .grid-bg {
+    background-image:
+      linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+  }
+  body.light nav { background:rgba(248,250,252,0.92); border-bottom:1px solid rgba(59,130,246,0.2); }
+  body.light .nav-logo { color:#0F172A; }
+  body.light .nav-links a { color:#475569; }
+  body.light .nav-links a:hover { color:#0F172A; }
+  body.light .mobile-menu { background:rgba(248,250,252,0.98); }
+  body.light .mobile-menu a { color:#0F172A; }
+  body.light .hamburger span { background:#0F172A; }
+  body.light .section-title { color:#0F172A; }
+  body.light .hero-title { color:#0F172A !important; }
+  body.light .stat-card { background:rgba(59,130,246,0.04); border-color:rgba(59,130,246,0.15); }
+  body.light .service-card { background:#fff; border-color:rgba(0,0,0,0.08); }
+  body.light .service-card:hover { background:rgba(59,130,246,0.04); }
+  body.light .service-card.featured { background:rgba(59,130,246,0.06); }
+  body.light .tool-chip { background:#fff; border-color:rgba(0,0,0,0.1); color:#475569; }
+  body.light .tool-chip:hover { color:#1D4ED8; background:rgba(59,130,246,0.06); }
+  body.light .about-box { background:rgba(59,130,246,0.05); border-color:rgba(59,130,246,0.2); }
+  body.light .check-item { color:#475569; }
+  body.light .divider { border-color:rgba(0,0,0,0.08); }
+  body.light footer { border-color:rgba(0,0,0,0.08); }
+  body.light footer p { color:#94A3B8; }
+  body.light .available-dot { border:2px solid #F8FAFC; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    backdrop-filter:blur(24px);
+    background:rgba(8,11,20,0.92);
+    border-bottom:1px solid rgba(59,130,246,0.15);
+    transition:background 0.3s, border-color 0.3s;
+  }
+  .nav-inner {
+    max-width:1200px; margin:0 auto;
+    padding:0 24px; height:68px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+  }
+  .nav-logo {
+    font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800;
+    color:#F1F5F9; letter-spacing:-0.02em; text-decoration:none;
+    display:flex; align-items:center; gap:2px;
+    transition:color 0.3s;
+  }
+  .nav-logo span { color:#3B82F6; }
+  .nav-logo-dot {
+    width:6px; height:6px; border-radius:50%; background:#4ADE80;
+    margin-left:4px; margin-bottom:8px;
+    animation:pdot 2s ease-in-out infinite;
+  }
+  .nav-links { display:flex; gap:8px; align-items:center; }
+  .nav-links a {
+    color:#94A3B8; font-size:0.875rem; text-decoration:none;
+    padding:6px 12px; border-radius:8px;
+    transition:all 0.2s;
+  }
+  .nav-links a:hover { color:#F1F5F9; background:rgba(255,255,255,0.06); }
+  .nav-right { display:flex; align-items:center; gap:12px; }
+
+  /* THEME TOGGLE */
+  .theme-toggle {
+    width:40px; height:40px; border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:16px; transition:all 0.2s; flex-shrink:0;
+  }
+  .theme-toggle:hover { background:rgba(255,255,255,0.1); border-color:rgba(59,130,246,0.4); }
+  body.light .theme-toggle { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+  body.light .theme-toggle:hover { background:rgba(59,130,246,0.08); border-color:rgba(59,130,246,0.3); }
+
+  /* HAMBURGER */
+  .hamburger {
+    display:none; flex-direction:column; justify-content:center;
+    gap:5px; cursor:pointer; background:none; border:none; padding:8px; z-index:300;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px;
+    background:#E2E8F0; border-radius:2px;
+    transition:all 0.3s ease; transform-origin:center;
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE DRAWER */
+  .mobile-menu {
+    position:fixed; top:68px; left:0; right:0; bottom:0;
+    background:rgba(8,11,20,0.98); backdrop-filter:blur(20px);
+    z-index:150;
+    flex-direction:column; align-items:center; justify-content:center; gap:36px;
+    display:none; opacity:0; pointer-events:none; transition:opacity 0.3s ease;
+  }
+  .mobile-menu.open { display:flex; opacity:1; pointer-events:all; }
+  .mobile-menu a {
+    color:#F1F5F9; font-family:'Syne',sans-serif;
+    font-size:1.8rem; font-weight:700; text-decoration:none;
+    letter-spacing:-0.02em; transition:color 0.2s;
+  }
+  .mobile-menu a:hover { color:#60A5FA; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background:#3B82F6; color:#fff; border:none; border-radius:8px;
+    padding:14px 32px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; letter-spacing:0.02em;
+    transition:all 0.2s; text-decoration:none; display:inline-block;
+  }
+  .btn-primary:hover { background:#2563EB; transform:translateY(-1px); box-shadow:0 8px 30px rgba(59,130,246,0.4); }
+  .btn-outline {
+    background:transparent; color:#93C5FD;
+    border:1px solid rgba(59,130,246,0.4); border-radius:8px;
+    padding:14px 32px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; letter-spacing:0.02em;
+    transition:all 0.2s; text-decoration:none; display:inline-block;
+  }
+  .btn-outline:hover { border-color:#3B82F6; background:rgba(59,130,246,0.08); }
+
+  /* BADGE */
+  .badge {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3);
+    border-radius:99px; padding:6px 16px; font-size:0.78rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:#93C5FD;
+  }
+  .badge-dot { width:6px; height:6px; border-radius:50%; background:#3B82F6; animation:pdot 2s ease-in-out infinite; }
+  @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+  /* HERO */
+  .hero-title { font-size:clamp(2.4rem,8vw,5.5rem); line-height:1.05; font-weight:800; letter-spacing:-0.03em; }
+  .blue-text { color:#60A5FA; position:relative; }
+  .blue-text::after { content:''; position:absolute; left:0; right:0; bottom:-4px; height:3px; background:linear-gradient(90deg,#3B82F6,transparent); border-radius:2px; }
+
+  /* STATS */
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:480px; margin-top:72px; }
+  .stat-card { text-align:center; padding:24px 16px; border:1px solid rgba(255,255,255,0.07); border-radius:12px; background:rgba(255,255,255,0.02); }
+  .stat-num { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,2.6rem); font-weight:800; color:#60A5FA; line-height:1; }
+  .stat-label { font-size:0.75rem; color:#64748B; margin-top:6px; }
+
+  /* SECTION */
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:#3B82F6; font-weight:500; margin-bottom:12px; }
+  .section-title { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:800; letter-spacing:-0.02em; line-height:1.1; color:#F1F5F9; }
+
+  /* SERVICES */
+  .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .service-card {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px; padding:28px; transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#3B82F6,transparent); opacity:0; transition:opacity 0.3s; }
+  .service-card:hover { border-color:rgba(59,130,246,0.3); background:rgba(59,130,246,0.05); transform:translateY(-4px); }
+  .service-card:hover::before { opacity:1; }
+  .service-card.featured { grid-column:span 2; border-color:rgba(59,130,246,0.25); background:rgba(59,130,246,0.04); }
+  .service-card.full { grid-column:span 2; }
+  .featured-inner { display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center; }
+  .icon-box { width:48px; height:48px; background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; margin-bottom:20px; }
+
+  /* TOOLS */
+  .tools-wrap { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .tool-chip { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 18px; font-size:0.85rem; color:#94A3B8; transition:all 0.2s; }
+  .tool-chip:hover { border-color:rgba(59,130,246,0.4); color:#93C5FD; background:rgba(59,130,246,0.08); }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .about-box { background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); border-radius:20px; padding:36px; position:relative; }
+  .check-item { display:flex; align-items:center; gap:12px; font-size:0.875rem; color:#64748B; }
+  .check-item b { color:#3B82F6; font-weight:400; }
+  .available { display:inline-flex; align-items:center; gap:8px; font-size:0.8rem; color:#4ADE80; }
+  .available-dot { width:8px; height:8px; border-radius:50%; background:#4ADE80; animation:pdot 2s infinite; }
+  .divider { border:none; border-top:1px solid rgba(255,255,255,0.06); }
+  .reveal { opacity:1; transform:none; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── TABLET ── */
+  @media (max-width:900px) {
+    .hamburger { display:flex; }
+    .nav-links { display:none; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .services-grid { grid-template-columns:1fr; }
+    .service-card.featured { grid-column:span 1; }
+    .service-card.full { grid-column:span 1; }
+    .featured-inner { grid-template-columns:1fr; }
+    .featured-inner .icon-box { margin-bottom:16px; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width:600px) {
+    .hero-section { padding:100px 20px 60px !important; }
+    .sec { padding:70px 20px !important; }
+    .stats-grid { max-width:100% !important; margin-top:48px; }
+    .stat-card { padding:16px 8px; }
+    .hero-btns { flex-direction:column; }
+    .hero-btns a { width:100%; text-align:center; }
+    .service-card { padding:22px 18px; }
+    .about-box { padding:24px 20px; }
+    .cta-btns { flex-direction:column; align-items:center; }
+    .cta-btns a { width:100%; max-width:320px; text-align:center; }
+    .mobile-menu a { font-size:1.5rem; }
+  }
+body.light .service-card h3 { color:#1E293B !important; }
+body.light .about-box blockquote { color:#1E293B !important; }
+body.light .about-box blockquote span { color:#1D4ED8 !important; }
+body.light p { color:#334155 !important; }
+body.light .check-item { color:#334155 !important; }
+body.light .nav-links a { color:#334155 !important; }
+body.light .section-label { color:#1D4ED8 !important; }
+body.light .badge { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.4) !important; }
+body.light .stat-num { color:#1D4ED8 !important; }
+body.light .blue-text { color:#1D4ED8 !important; }
+body.light .btn-outline { 
+  color:#1D4ED8 !important; 
+  border-color:#1D4ED8 !important; 
+}
+body.light .btn-outline:hover { 
+  background:rgba(29,78,216,0.08) !important; 
+}
+body.light em { color:#1D4ED8 !important; }
+body.light span[style*="93C5FD"] { color:#1D4ED8 !important; }
+body.light .service-card.featured div[style*="93C5FD"] { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.4) !important; }
+
+  /* FLOATING VIBER */
+  .float-viber {
+    position:fixed; bottom:28px; right:28px; z-index:500;
+    width:56px; height:56px; border-radius:50%;
+    background:#7360F2;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    box-shadow:0 4px 20px rgba(115,96,242,0.5);
+    transition:all 0.3s;
+  }
+  .float-viber:hover { transform:scale(1.1); box-shadow:0 8px 30px rgba(115,96,242,0.7); }
+  .float-viber svg { width:28px; height:28px; }
+  .float-tooltip {
+    position:absolute; right:64px; top:50%; transform:translateY(-50%);
+    background:#1E293B; color:#F1F5F9; font-size:0.78rem;
+    padding:6px 12px; border-radius:8px; white-space:nowrap;
+    opacity:0; pointer-events:none; transition:opacity 0.2s;
+    font-family:'Inter',sans-serif;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .float-viber:hover .float-tooltip { opacity:1; }
+
+</style>
+</head>
+<body class="grid-bg">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">ND<span>.</span><span class="nav-logo-dot"></span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#tools">Tools</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <a href="contact.html" class="btn-primary" style="padding:10px 22px;font-size:0.82rem;">Let's Talk</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="ml">About</a>
+  <a href="#services" class="ml">Services</a>
+  <a href="#tools" class="ml">Tools</a>
+  <a href="projects.html" class="ml">Projects</a>
+  <a href="contact.html" class="ml">Contact</a>
+  <a href="contact.html" class="btn-primary ml" style="font-size:1rem;padding:14px 40px;">Let's Talk</a>
+</div>
+
+<!-- HERO -->
+<section class="hero-section" style="min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 32px 80px;overflow:hidden;">
+  <div class="orb" style="width:600px;height:600px;top:-100px;left:-200px;background:radial-gradient(circle,rgba(59,130,246,0.12),transparent 70%);"></div>
+  <div class="orb" style="width:400px;height:400px;bottom:-50px;right:-100px;background:radial-gradient(circle,rgba(99,102,241,0.1),transparent 70%);"></div>
+  <div style="max-width:1200px;margin:0 auto;width:100%;">
+    <div class="reveal" style="margin-bottom:24px;">
+      <span class="badge"><span class="badge-dot"></span>Available for projects</span>
+    </div>
+    <h1 class="hero-title font-syne reveal" style="max-width:860px;margin-bottom:28px;color:#F1F5F9;">
+      Nikola<br><span class="blue-text">Dikliev</span>
+    </h1>
+    <p class="reveal" style="font-size:1.05rem;color:#60A5FA;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:20px;">
+      Conversion-Focused Web Designer & WordPress Specialist
+    </p>
+    <p class="reveal" style="font-size:1rem;color:#94A3B8;max-width:560px;line-height:1.75;margin-bottom:44px;">
+      Results-driven designer who bridges aesthetics and functionality — building e-commerce experiences that are visually stunning and strategically designed to <em style="color:#93C5FD;">drive sales</em>.
+    </p>
+    <div class="reveal hero-btns" style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="projects.html" class="btn-primary">View My Work</a>
+      <a href="contact.html" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Years exp.</div></div>
+      <div class="stat-card"><div class="stat-num">AI</div><div class="stat-label">Powered</div></div>
+      <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Creativity</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about" class="sec" style="padding:100px 32px;position:relative;overflow:hidden;">
+  <div class="orb" style="width:500px;height:500px;top:50%;right:-150px;transform:translateY(-50%);background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);"></div>
+  <div class="about-grid" style="max-width:1200px;margin:0 auto;">
+    <div class="reveal">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+  <div style="position:relative;flex-shrink:0;">
+    <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#6366F1);padding:2px;">
+      <img src="images/nikola.png" alt="Nikola Dikliev" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;">
+    </div>
+    <div style="position:absolute;bottom:2px;right:2px;width:14px;height:14px;background:#4ADE80;border-radius:50%;border:2px solid #080B14;"></div>
+  </div>
+  <div>
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#F1F5F9;">Nikola Dikliev</div>
+    <div style="font-size:0.78rem;color:#64748B;margin-top:2px;">Web Designer & WordPress Specialist</div>
+  </div>
+</div>
+      <p class="section-label">About Me</p>
+      <h2 class="section-title" style="margin-bottom:28px;">Where Strategy<br>Meets Design</h2>
+      <p style="color:#94A3B8;line-height:1.85;font-size:0.975rem;margin-bottom:20px;">
+        I am a results-driven Web and Graphic Designer with a strategic marketing mindset, specializing in e-commerce solutions. My core expertise lies in building high-performing websites using <span style="color:#93C5FD;">WordPress and OpenCart</span>, with a proven ability to quickly master new platforms like Shopify.
+      </p>
+      <p style="color:#94A3B8;line-height:1.85;font-size:0.975rem;margin-bottom:32px;">
+        I bridge the gap between aesthetics and functionality using professional tools like CorelDraw, Photoshop, and cutting-edge <span style="color:#93C5FD;">AI workflows</span> — ensuring your site is not just a technical masterpiece, but a visual powerhouse designed to convert.
+      </p>
+      <div class="available"><span class="available-dot"></span>Open to new projects</div>
+    </div>
+    <div class="reveal">
+      <div class="about-box">
+        <div style="position:absolute;top:-1px;left:32px;right:32px;height:2px;background:linear-gradient(90deg,transparent,#3B82F6,transparent);border-radius:2px;"></div>
+        <p style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#3B82F6;margin-bottom:20px;">Core philosophy</p>
+        <blockquote style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:#F1F5F9;line-height:1.4;margin-bottom:24px;">
+          "Not just visually stunning — strategically designed to <span style="color:#60A5FA;">drive growth.</span>"
+        </blockquote>
+        <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:24px;"></div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="check-item"><b>✓</b> E-commerce focused</div>
+          <div class="check-item"><b>✓</b> AI-enhanced workflow</div>
+          <div class="check-item"><b>✓</b> Conversion optimization</div>
+          <div class="check-item"><b>✓</b> Full-stack creative</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SERVICES -->
+<section id="services" class="sec" style="padding:100px 32px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;" class="reveal">
+      <p class="section-label">What I Do</p>
+      <h2 class="section-title">Services</h2>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h3 class="font-syne" style="font-size:1.1rem;font-weight:700;color:#F1F5F9;margin-bottom:12px;">Web Design & Development</h3>
+        <p style="color:#64748B;font-size:0.9rem;line-height:1.75;">Professional websites built with WordPress and OpenCart, focused on performance and user experience. Built to convert visitors into customers.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <h3 class="font-syne" style="font-size:1.1rem;font-weight:700;color:#F1F5F9;margin-bottom:12px;">Graphic Design & Branding</h3>
+        <p style="color:#64748B;font-size:0.9rem;line-height:1.75;">High-quality visual identity and marketing materials created with CorelDraw and Photoshop that make your brand unforgettable.</p>
+      </div>
+      <div class="service-card featured">
+        <div class="featured-inner">
+          <div class="icon-box" style="background:rgba(59,130,246,0.2);border-color:rgba(59,130,246,0.4);margin-bottom:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div>
+            <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);border-radius:99px;padding:4px 12px;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#93C5FD;margin-bottom:12px;">Signature Service</div>
+            <h3 class="font-syne" style="font-size:1.1rem;font-weight:700;color:#F1F5F9;margin-bottom:10px;">Next-Gen Web Development & High-Impact Visuals</h3>
+            <p style="color:#64748B;font-size:0.9rem;line-height:1.75;">Accelerating brand growth through the fusion of AI and expert development. I specialize in bespoke WordPress environments using PHP and ACF, complemented by professional AI-driven marketing creatives.</p>
+          </div>
+        </div>
+      </div>
+      <div class="service-card full">
+        <div class="icon-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
+        <h3 class="font-syne" style="font-size:1.1rem;font-weight:700;color:#F1F5F9;margin-bottom:12px;">Video Marketing & Strategy</h3>
+        <p style="color:#64748B;font-size:0.9rem;line-height:1.75;">Strategic video content and social media ads created with CapCut and AI tools, designed to drive engagement and sales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TOOLS -->
+<section id="tools" class="sec" style="padding:100px 32px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;" class="reveal">
+      <p class="section-label">My Stack</p>
+      <h2 class="section-title">Tools & Technologies</h2>
+    </div>
+    <div class="tools-wrap reveal">
+      <span class="tool-chip">WordPress</span>
+      <span class="tool-chip">PHP</span>
+      <span class="tool-chip">ACF</span>
+      <span class="tool-chip">CSS</span>
+      <span class="tool-chip">OpenCart</span>
+      <span class="tool-chip">Shopify</span>
+      <span class="tool-chip">Photoshop</span>
+      <span class="tool-chip">CorelDraw</span>
+      <span class="tool-chip">CapCut</span>
+      <span class="tool-chip">Claude AI</span>
+      <span class="tool-chip">NanoBanana</span>
+      <span class="tool-chip">Kling AI</span>
+      <span class="tool-chip">AI Creatives</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact" class="sec" style="padding:100px 32px;text-align:center;position:relative;overflow:hidden;">
+  <div class="orb" style="width:700px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(59,130,246,0.1),transparent 65%);"></div>
+  <div style="position:relative;z-index:1;max-width:700px;margin:0 auto;" class="reveal">
+    <p class="section-label">Ready to start?</p>
+    <h2 class="section-title" style="margin-bottom:20px;">Let's Build Something<br><span style="color:#60A5FA;">That Converts</span></h2>
+    <p style="color:#64748B;font-size:1rem;line-height:1.75;margin-bottom:44px;">Have a project in mind? I'm available for freelance work and open to discussing new opportunities.</p>
+    <div class="cta-btns" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn-primary" style="font-size:1rem;padding:16px 40px;">Start a Project</a>
+      <a href="#services" class="btn-outline" style="font-size:1rem;padding:16px 40px;">View Services</a>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:28px 32px;text-align:center;">
+  <p style="color:#334155;font-size:0.8rem;">© 2025 Nikola Dikliev — Conversion-Focused Web Designer & WordPress Specialist</p>
+</footer>
+
+<script>
+  // Hamburger
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.ml').forEach(l => {
+    l.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 900) {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Theme toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme === 'light') { document.body.classList.add('light'); toggleBtn.textContent = '☀️'; }
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    toggleBtn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+</script>
+
+<!-- FLOATING VIBER -->
+<a href="viber://chat?number=%2B359988945416" class="float-viber" aria-label="Viber">
+  <span class="float-tooltip">Chat on Viber</span>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/><path fill-rule="evenodd" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/></svg>
+</a>
+</body>
+</html>

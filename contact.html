@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%23080B14'/><text x='50' y='58' font-family='Arial Black,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='white'>ND</text><circle cx='82' cy='72' r='7' fill='%233B82F6'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Nikola Dikliev</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #080B14;
+    color: #E2E8F0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  .font-syne { font-family: 'Syne', sans-serif; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; }
+
+  /* LIGHT MODE */
+  body.light { background:#F8FAFC; color:#0F172A; }
+  body.light.grid-bg {
+  background-image:
+    linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+  body.light .grid-bg {
+    background-image:
+      linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px);
+  }
+  body.light nav { background:rgba(248,250,252,0.92); border-bottom:1px solid rgba(59,130,246,0.2); }
+  body.light .nav-logo { color:#0F172A; }
+  body.light .nav-links a { color:#475569; }
+  body.light .nav-links a:hover { color:#0F172A; }
+  body.light .mobile-menu { background:rgba(248,250,252,0.98); }
+  body.light .mobile-menu a { color:#0F172A; }
+  body.light .hamburger span { background:#0F172A; }
+  body.light .section-title { color:#0F172A; }
+  body.light .hero-title { color:#0F172A !important; }
+  body.light .stat-card { background:rgba(59,130,246,0.04); border-color:rgba(59,130,246,0.15); }
+  body.light .service-card { background:#fff; border-color:rgba(0,0,0,0.08); }
+  body.light .service-card:hover { background:rgba(59,130,246,0.04); }
+  body.light .service-card.featured { background:rgba(59,130,246,0.06); }
+  body.light .tool-chip { background:#fff; border-color:rgba(0,0,0,0.1); color:#475569; }
+  body.light .tool-chip:hover { color:#1D4ED8; background:rgba(59,130,246,0.06); }
+  body.light .about-box { background:rgba(59,130,246,0.05); border-color:rgba(59,130,246,0.2); }
+  body.light .check-item { color:#475569; }
+  body.light .divider { border-color:rgba(0,0,0,0.08); }
+  body.light footer { border-color:rgba(0,0,0,0.08); }
+  body.light footer p { color:#94A3B8; }
+  body.light .available-dot { border:2px solid #F8FAFC; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    backdrop-filter:blur(24px);
+    background:rgba(8,11,20,0.92);
+    border-bottom:1px solid rgba(59,130,246,0.15);
+    transition:background 0.3s, border-color 0.3s;
+  }
+  .nav-inner {
+    max-width:1200px; margin:0 auto;
+    padding:0 24px; height:68px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+  }
+  .nav-logo {
+    font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800;
+    color:#F1F5F9; letter-spacing:-0.02em; text-decoration:none;
+    display:flex; align-items:center; gap:2px;
+    transition:color 0.3s;
+  }
+  .nav-logo span { color:#3B82F6; }
+  .nav-logo-dot {
+    width:6px; height:6px; border-radius:50%; background:#4ADE80;
+    margin-left:4px; margin-bottom:8px;
+    animation:pdot 2s ease-in-out infinite;
+  }
+  .nav-links { display:flex; gap:8px; align-items:center; }
+  .nav-links a {
+    color:#94A3B8; font-size:0.875rem; text-decoration:none;
+    padding:6px 12px; border-radius:8px;
+    transition:all 0.2s;
+  }
+  .nav-links a:hover { color:#F1F5F9; background:rgba(255,255,255,0.06); }
+  .nav-right { display:flex; align-items:center; gap:12px; }
+
+  /* THEME TOGGLE */
+  .theme-toggle {
+    width:40px; height:40px; border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:16px; transition:all 0.2s; flex-shrink:0;
+  }
+  .theme-toggle:hover { background:rgba(255,255,255,0.1); border-color:rgba(59,130,246,0.4); }
+  body.light .theme-toggle { background:rgba(0,0,0,0.05); border-color:rgba(0,0,0,0.12); }
+  body.light .theme-toggle:hover { background:rgba(59,130,246,0.08); border-color:rgba(59,130,246,0.3); }
+
+  /* HAMBURGER */
+  .hamburger {
+    display:none; flex-direction:column; justify-content:center;
+    gap:5px; cursor:pointer; background:none; border:none; padding:8px; z-index:300;
+  }
+  .hamburger span {
+    display:block; width:24px; height:2px;
+    background:#E2E8F0; border-radius:2px;
+    transition:all 0.3s ease; transform-origin:center;
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE DRAWER */
+  .mobile-menu {
+    position:fixed; top:68px; left:0; right:0; bottom:0;
+    background:rgba(8,11,20,0.98); backdrop-filter:blur(20px);
+    z-index:150;
+    flex-direction:column; align-items:center; justify-content:center; gap:36px;
+    display:none; opacity:0; pointer-events:none; transition:opacity 0.3s ease;
+  }
+  .mobile-menu.open { display:flex; opacity:1; pointer-events:all; }
+  .mobile-menu a {
+    color:#F1F5F9; font-family:'Syne',sans-serif;
+    font-size:1.8rem; font-weight:700; text-decoration:none;
+    letter-spacing:-0.02em; transition:color 0.2s;
+  }
+  .mobile-menu a:hover { color:#60A5FA; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background:#3B82F6; color:#fff; border:none; border-radius:8px;
+    padding:14px 32px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; letter-spacing:0.02em;
+    transition:all 0.2s; text-decoration:none; display:inline-block;
+  }
+  .btn-primary:hover { background:#2563EB; transform:translateY(-1px); box-shadow:0 8px 30px rgba(59,130,246,0.4); }
+  .btn-outline {
+    background:transparent; color:#93C5FD;
+    border:1px solid rgba(59,130,246,0.4); border-radius:8px;
+    padding:14px 32px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; letter-spacing:0.02em;
+    transition:all 0.2s; text-decoration:none; display:inline-block;
+  }
+  .btn-outline:hover { border-color:#3B82F6; background:rgba(59,130,246,0.08); }
+
+  /* BADGE */
+  .badge {
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3);
+    border-radius:99px; padding:6px 16px; font-size:0.78rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:#93C5FD;
+  }
+  .badge-dot { width:6px; height:6px; border-radius:50%; background:#3B82F6; animation:pdot 2s ease-in-out infinite; }
+  @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+  /* HERO */
+  .hero-title { font-size:clamp(2.4rem,8vw,5.5rem); line-height:1.05; font-weight:800; letter-spacing:-0.03em; }
+  .blue-text { color:#60A5FA; position:relative; }
+  .blue-text::after { content:''; position:absolute; left:0; right:0; bottom:-4px; height:3px; background:linear-gradient(90deg,#3B82F6,transparent); border-radius:2px; }
+
+  /* STATS */
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:480px; margin-top:72px; }
+  .stat-card { text-align:center; padding:24px 16px; border:1px solid rgba(255,255,255,0.07); border-radius:12px; background:rgba(255,255,255,0.02); }
+  .stat-num { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,2.6rem); font-weight:800; color:#60A5FA; line-height:1; }
+  .stat-label { font-size:0.75rem; color:#64748B; margin-top:6px; }
+
+  /* SECTION */
+  .section-label { font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:#3B82F6; font-weight:500; margin-bottom:12px; }
+  .section-title { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:800; letter-spacing:-0.02em; line-height:1.1; color:#F1F5F9; }
+
+  /* SERVICES */
+  .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .service-card {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px; padding:28px; transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#3B82F6,transparent); opacity:0; transition:opacity 0.3s; }
+  .service-card:hover { border-color:rgba(59,130,246,0.3); background:rgba(59,130,246,0.05); transform:translateY(-4px); }
+  .service-card:hover::before { opacity:1; }
+  .service-card.featured { grid-column:span 2; border-color:rgba(59,130,246,0.25); background:rgba(59,130,246,0.04); }
+  .service-card.full { grid-column:span 2; }
+  .featured-inner { display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center; }
+  .icon-box { width:48px; height:48px; background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.2); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; margin-bottom:20px; }
+
+  /* TOOLS */
+  .tools-wrap { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .tool-chip { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 18px; font-size:0.85rem; color:#94A3B8; transition:all 0.2s; }
+  .tool-chip:hover { border-color:rgba(59,130,246,0.4); color:#93C5FD; background:rgba(59,130,246,0.08); }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .about-box { background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); border-radius:20px; padding:36px; position:relative; }
+  .check-item { display:flex; align-items:center; gap:12px; font-size:0.875rem; color:#64748B; }
+  .check-item b { color:#3B82F6; font-weight:400; }
+  .available { display:inline-flex; align-items:center; gap:8px; font-size:0.8rem; color:#4ADE80; }
+  .available-dot { width:8px; height:8px; border-radius:50%; background:#4ADE80; animation:pdot 2s infinite; }
+  .divider { border:none; border-top:1px solid rgba(255,255,255,0.06); }
+  .reveal { opacity:1; transform:none; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── TABLET ── */
+  @media (max-width:900px) {
+    .hamburger { display:flex; }
+    .nav-links { display:none; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .services-grid { grid-template-columns:1fr; }
+    .service-card.featured { grid-column:span 1; }
+    .service-card.full { grid-column:span 1; }
+    .featured-inner { grid-template-columns:1fr; }
+    .featured-inner .icon-box { margin-bottom:16px; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width:600px) {
+    .hero-section { padding:100px 20px 60px !important; }
+    .sec { padding:70px 20px !important; }
+    .stats-grid { max-width:100% !important; margin-top:48px; }
+    .stat-card { padding:16px 8px; }
+    .hero-btns { flex-direction:column; }
+    .hero-btns a { width:100%; text-align:center; }
+    .service-card { padding:22px 18px; }
+    .about-box { padding:24px 20px; }
+    .cta-btns { flex-direction:column; align-items:center; }
+    .cta-btns a { width:100%; max-width:320px; text-align:center; }
+    .mobile-menu a { font-size:1.5rem; }
+  }
+body.light .service-card h3 { color:#1E293B !important; }
+body.light .about-box blockquote { color:#1E293B !important; }
+body.light .about-box blockquote span { color:#1D4ED8 !important; }
+body.light p { color:#334155 !important; }
+body.light .check-item { color:#334155 !important; }
+body.light .nav-links a { color:#334155 !important; }
+body.light .section-label { color:#1D4ED8 !important; }
+body.light .badge { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.4) !important; }
+body.light .stat-num { color:#1D4ED8 !important; }
+body.light .blue-text { color:#1D4ED8 !important; }
+body.light .btn-outline { 
+  color:#1D4ED8 !important; 
+  border-color:#1D4ED8 !important; 
+}
+body.light .btn-outline:hover { 
+  background:rgba(29,78,216,0.08) !important; 
+}
+body.light em { color:#1D4ED8 !important; }
+body.light span[style*="93C5FD"] { color:#1D4ED8 !important; }
+body.light .service-card.featured div[style*="93C5FD"] { color:#1D4ED8 !important; border-color:rgba(29,78,216,0.4) !important; }
+
+  /* FLOATING VIBER */
+  .float-viber {
+    position:fixed; bottom:28px; right:28px; z-index:500;
+    width:56px; height:56px; border-radius:50%;
+    background:#7360F2;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    box-shadow:0 4px 20px rgba(115,96,242,0.5);
+    transition:all 0.3s;
+  }
+  .float-viber:hover { transform:scale(1.1); box-shadow:0 8px 30px rgba(115,96,242,0.7); }
+  .float-viber svg { width:28px; height:28px; }
+  .float-tooltip {
+    position:absolute; right:64px; top:50%; transform:translateY(-50%);
+    background:#1E293B; color:#F1F5F9; font-size:0.78rem;
+    padding:6px 12px; border-radius:8px; white-space:nowrap;
+    opacity:0; pointer-events:none; transition:opacity 0.2s;
+    font-family:'Inter',sans-serif;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .float-viber:hover .float-tooltip { opacity:1; }
+
+
+
+  /* CONTACT SPECIFIC */
+  .contact-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-bottom:40px; }
+  .contact-card {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
+    border-radius:16px; padding:24px 28px;
+    display:flex; align-items:center; gap:20px;
+    text-decoration:none; transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .contact-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#3B82F6,transparent); opacity:0; transition:opacity 0.3s; }
+  .contact-card:hover { border-color:rgba(59,130,246,0.3); background:rgba(59,130,246,0.04); transform:translateY(-3px); }
+  .contact-card:hover::before { opacity:1; }
+  body.light .contact-card { background:#fff; border-color:rgba(0,0,0,0.08); }
+  body.light .contact-card:hover { border-color:rgba(59,130,246,0.3); }
+  body.light .contact-value { color:#0F172A; }
+  body.light .contact-label { color:#64748B; }
+
+  .contact-icon { width:48px; height:48px; border-radius:12px; background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .contact-icon svg { color:#3B82F6; }
+  .contact-label { font-size:0.75rem; color:#64748B; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+  .contact-value { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700; color:#F1F5F9; }
+
+  .info-box { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:28px; display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:40px; }
+  body.light .info-box { background:#fff; border-color:rgba(0,0,0,0.08); }
+  .info-item { display:flex; flex-direction:column; gap:6px; }
+  .info-label { font-size:0.72rem; color:#475569; text-transform:uppercase; letter-spacing:0.1em; display:flex; align-items:center; gap:8px; }
+  .info-label svg { color:#3B82F6; }
+  .info-value { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700; color:#F1F5F9; }
+  body.light .info-value { color:#0F172A; }
+
+  .cta-box { background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.15); border-radius:20px; padding:48px 40px; text-align:center; position:relative; overflow:hidden; }
+  .cta-box::before { content:''; position:absolute; top:-1px; left:40px; right:40px; height:2px; background:linear-gradient(90deg,transparent,#3B82F6,transparent); border-radius:2px; }
+  body.light .cta-box { background:rgba(59,130,246,0.05); border-color:rgba(59,130,246,0.2); }
+
+  .btn-linkedin { background:rgba(59,130,246,0.15) !important; border:1px solid rgba(59,130,246,0.3) !important; }
+  body.light .btn-linkedin { background:rgba(29,78,216,0.12) !important; border-color:rgba(29,78,216,0.4) !important; color:#1D4ED8 !important; }
+
+  @media (max-width:900px) {
+    .hamburger { display:flex; }
+    .nav-links { display:none; }
+    .contact-grid { grid-template-columns:1fr; }
+    .info-box { grid-template-columns:1fr; }
+  }
+  @media (max-width:600px) {
+    .page-hero { padding:110px 20px 60px !important; }
+    .contact-section { padding:20px 20px 80px !important; }
+    .cta-box { padding:32px 24px; }
+  }
+</style>
+</head>
+<body class="grid-bg">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">ND<span>.</span><span class="nav-logo-dot"></span></a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <a href="contact.html" class="btn-primary" style="padding:10px 22px;font-size:0.82rem;">Let's Talk</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#about" class="ml">About</a>
+  <a href="index.html#services" class="ml">Services</a>
+  <a href="index.html#tools" class="ml">Tools</a>
+  <a href="projects.html" class="ml">Projects</a>
+  <a href="contact.html" class="ml">Contact</a>
+  <a href="contact.html" class="btn-primary ml" style="font-size:1rem;padding:14px 40px;">Let's Talk</a>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#about" class="ml">About</a>
+  <a href="index.html#services" class="ml">Services</a>
+  <a href="index.html#tools" class="ml">Tools</a>
+  <a href="projects.html" class="ml">Projects</a>
+  <a href="contact.html" class="ml">Contact</a>
+  <a href="#" onclick="window.location.href='mailto:dikliev.n@gmail.com';return false;" class="btn-primary ml" style="font-size:1rem;padding:14px 40px;">Let's Talk</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="padding:140px 32px 60px;max-width:1200px;margin:0 auto;position:relative;">
+  <div class="orb" style="width:500px;height:500px;top:-100px;left:-150px;background:radial-gradient(circle,rgba(59,130,246,0.1),transparent 70%);"></div>
+  <div style="margin-bottom:20px;">
+    <span class="available"><span class="available-dot"></span>Available for new projects</span>
+  </div>
+  <p class="section-label">Get In Touch</p>
+  <h1 class="section-title">Let's Work Together</h1>
+  <p style="color:#94A3B8;font-size:1rem;line-height:1.75;max-width:500px;margin-top:16px;">Have a project in mind or just want to say hello? Reach out through any of the channels below.</p>
+</div>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" style="padding:20px 32px 100px;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <div class="contact-grid">
+      <a href="#" onclick="window.location.href='mailto:dikliev.n@gmail.com';return false;" class="contact-card">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">dikliev.n@gmail.com</div>
+        </div>
+      </a>
+
+      <a href="tel:+359988945416" class="contact-card">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.58 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.65-1.65a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+359 988 945 416</div>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/nikola-dikliev-2188aa3b4/" target="_blank" class="contact-card">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">Nikola Dikliev</div>
+        </div>
+      </a>
+
+      <div class="contact-card" style="cursor:default;">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Plovdiv, Bulgaria</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-item">
+        <div class="info-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Response Time</div>
+        <div class="info-value">Within 24 hours</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Availability</div>
+        <div class="info-value">Open to Projects</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Work Type</div>
+        <div class="info-value">Remote & On-site</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Specialization</div>
+        <div class="info-value">WordPress & E-commerce</div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div class="orb" style="width:400px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(59,130,246,0.1),transparent 65%);"></div>
+      <div style="position:relative;z-index:1;">
+        <p class="section-label" style="justify-content:center;display:flex;">Start a Conversation</p>
+        <h2 class="section-title" style="margin-bottom:16px;">Ready to Build Something<br><span style="color:#60A5FA;">That Converts?</span></h2>
+        <p style="color:#64748B;font-size:0.975rem;line-height:1.75;max-width:480px;margin:0 auto 36px;">Whether it's a new website, a redesign, or an e-commerce platform — let's talk about your project.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="#" onclick="window.location.href='mailto:dikliev.n@gmail.com';return false;" class="btn-primary" style="font-size:1rem;padding:16px 40px;">Send an Email</a>
+          <a href="https://www.linkedin.com/in/nikola-dikliev-2188aa3b4/" target="_blank" class="btn-primary btn-linkedin" style="font-size:1rem;padding:16px 40px;">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr style="border:none;border-top:1px solid rgba(255,255,255,0.06);">
+
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:28px 32px;text-align:center;">
+  <p style="color:#334155;font-size:0.8rem;">© 2025 Nikola Dikliev — Conversion-Focused Web Designer & WordPress Specialist</p>
+</footer>
+
+<!-- FLOATING VIBER -->
+<a href="viber://chat?number=%2B359988945416" class="float-viber" aria-label="Viber">
+  <span class="float-tooltip">Chat on Viber</span>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/><path fill-rule="evenodd" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/></svg>
+</a>
+
+
+<script>
+  // Hamburger
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.ml').forEach(l => {
+    l.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 900) {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+  // Theme toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme === 'light') { document.body.classList.add('light'); toggleBtn.textContent = '☀️'; }
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    toggleBtn.textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
+</script>
+<!-- FLOATING VIBER -->
+<a href="viber://chat?number=%2B359988945416" class="float-viber" aria-label="Viber">
+  <span class="float-tooltip">Chat on Viber</span>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"><path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" d="M269 186a30 30 0 0 1 31 31m-38-58a64 64 0 0 1 64 67m-73-93a97 97 0 0 1 99 104"/><path fill-rule="evenodd" d="M95 232c0-91 17-147 161-147s161 56 161 147-17 147-161 147l-26-1-53 63c-4 4-8 1-8-3v-69c-6 0-31-12-38-19-22-23-36-40-36-118zm-30 0c0-126 55-177 191-177s191 51 191 177-55 177-191 177c-10 0-18 0-32-2l-38 43c-7 8-28 11-28-13v-42c-6 0-20-6-39-18-19-13-54-44-54-145zm223 42q10-13 24-4l36 27q8 10-7 28t-28 15q-53-12-102-60t-61-104q0-20 25-34 13-9 22 5l25 35q6 12-7 22c-39 15 51 112 73 70z"/></svg>
+</a>
+</body>
+</html>
